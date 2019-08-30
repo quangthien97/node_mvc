@@ -9,7 +9,7 @@ const loginRouter = require('./routes/login');
 const usersRouter = require('./routes/users');
 const postsRouter = require('./routes/posts');
 const likeRouter = require('./routes/likes');
-
+const adminRouter = require('./routes/admin');
 const mongoose = require("mongoose");
 
 const connetMongoDB = async () => {
@@ -29,6 +29,9 @@ app.use(cookieParser());
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
+
+global.WEB_URL = 'http://localhost:3000';
+
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -37,6 +40,7 @@ app.use(express.static(path.join(__dirname, '/')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/admin', adminRouter);
 app.use('/posts', postsRouter);
 app.use('/login', loginRouter);
 app.use('/likes', likeRouter);

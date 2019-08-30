@@ -1,11 +1,21 @@
 const express = require('express');
 const router = express.Router();
 const jwt = require("jsonwebtoken");
-const bcrypt = require('bcrypt')
+const bcrypt = require('bcrypt');
+const cookie = require('cookie');
 const key = {
   tokenKey: "djghhhhuuwiwuewieuwieuriwu"
 }
 const UserModel = require('../models/Users');
+
+
+router.get('/', async function (req, res, next) {
+  try {
+    return res.render('user/login', { url: WEB_URL });
+  } catch (err) {
+    next(err);
+  }
+})
 
 router.post('/register', async function (req, res, next) {
   try {
@@ -31,14 +41,14 @@ router.post('/', async function (req, res, next) {
     const result = await bcrypt.compare(req.body.password, user.password);
     if (result == true) {
       var token = jwt.sign({ _id: user._id }, key.tokenKey);
-      return res.header('auth-token', token).json({
-        code: 200,
-        message: "dang nhap thanh cong",
-        data: { user },
-        token
-      });
+      res.header('Set-Cookie', cookie.serialize('session-token', token, {
+        httpOnly: true,
+        path: '/',
+        maxAge: 60 * 60 * 24 * 7
+      }));
+      res.redirect('/admin/users');
     } else {
-      return res.json({ code : 400, message : "sai mat khau", data : null });
+      return res.json({ code: 400, message: "sai mat khau", data: null });
     }
   } catch (err) {
     return res.json({ code: 400, message: err.message, data: null });

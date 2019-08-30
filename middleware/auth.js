@@ -1,10 +1,12 @@
+const cookie = require('cookie');
 const jwt = require("jsonwebtoken");
 const key = {
   tokenKey: "djghhhhuuwiwuewieuwieuriwu"
 }
 
 module.exports = function(req, res, next) {
-  const token = req.header('auth-token');
+  const cookies = cookie.parse(req.headers.cookie || '');
+  const token = cookies['session-token']
   if (!token) {
     return res.json({
       code: 401,

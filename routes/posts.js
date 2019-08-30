@@ -1,9 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const fs = require("fs");
 const formidable = require('formidable');
 const UserModel = require('../models/Users');
-const LikeModel = require('../models/Like');
 const PostModel = require('../models/Posts');
 const verify = require('../middleware/auth');
 /* GET users listing. */
