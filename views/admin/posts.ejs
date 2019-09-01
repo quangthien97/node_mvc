@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title><%= title %></title>
+  <link rel='stylesheet' href='/stylesheets/style.css' />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  <style>
+    img{
+      width: 30%;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="col-md-12">
+    <ul>
+      <table class="table-dark table-striped">
+        <tr>
+          <th>title</th>
+          <th>image</th>
+          <th>createBy</th>
+          <th>Like Count</th>
+        </tr>
+        <% getpost.forEach(function(post) { 
+            let imageA = post.image %>
+        <tr>
+          <th><%= post.title; %></th>
+          <th>
+            <% imageA.forEach(function(imageB) { %>
+            <img src=../<%= imageB; %> />
+            <% }); %>
+          </th>
+          <th><%= post.createdBy; %></th>
+          <th><%= post.likeCount; %></th>
+        </tr>
+        <% }); %>
+      </table>
+    </ul>
+  </div>
+</body>
+
+</html>
